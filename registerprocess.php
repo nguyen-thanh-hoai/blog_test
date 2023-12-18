@@ -6,5 +6,5 @@ if(isset($_POST['email'])){
     $email = $_POST['email'];
     $password = $_POST['password'];
     $user->register($email, $password);
-    header('location:register.php');
+    header('location:login.php');
 }

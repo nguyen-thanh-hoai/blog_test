@@ -44,11 +44,37 @@ class Blog extends Db
         return $items;
     }
     public function getBlogByKeyWord($keyword){
-        $sql = self::$connection->prepare('SELECT * FROM blog where tieude like ?');
-        $sql->bind_param("s", $keyword);
+        $sql = self::$connection->prepare("SELECT * FROM blog where tieude like ?");
+        $keywordnew = '%'.$keyword.'%';
+        $sql->bind_param("s",$keywordnew);
         $sql->execute();
         $items = array();
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
         return $items;
+    }
+
+    function getBlogByPage($page, $perPage)
+    {
+        $firstLink = ($page - 1) * $perPage;
+        $sql = self::$connection->prepare("SELECT * FROM blog LIMIT $firstLink, $perPage");
+        $sql->execute();
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items;
+    }
+
+    public function getTotalBlog(){
+        $sql = self::$connection->prepare("SELECT COUNT(*) as 'get' FROM blog");
+        $sql->execute();
+        $result = $sql->get_result()->fetch_assoc();
+        return $result['get'];
+    }
+    public function getTotalBlogByKeyWord($keyword){
+        $sql = self::$connection->prepare("SELECT COUNT(*) as 'get' FROM blog where tieude like ?");
+        $keywordnew = '%'.$keyword.'%';
+        $sql->bind_param("s",$keywordnew);
+        $sql->execute();
+        $result = $sql->get_result()->fetch_assoc();
+        return $result['get'];
     }
 }

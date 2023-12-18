@@ -1,5 +1,9 @@
 <?php
 require 'models/blog.php';
+$blog = new Blog();
+$total = isset($_GET['timkiem']) ? $blog->getTotalBlogByKeyWord($_GET['timkiem']) : $blog->getTotalBlog();
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$perPage = 2;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,7 +56,7 @@ require 'models/blog.php';
     <header class="header-global" id="home">
         <nav id="navbar-main" aria-label="Primary navigation" class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light navbar-theme-secondary">
             <div class="container position-relative">
-                <a class="navbar-brand mr-lg-4" href="./index.html">
+                <a class="navbar-brand mr-lg-4" href="index.php">
                     <img class="navbar-brand-dark" src="./assets/img/light.svg" alt="Logo light">
                     <img class="navbar-brand-light" src="./assets/img/dark.svg" alt="Logo dark">
                 </a>
@@ -60,7 +64,7 @@ require 'models/blog.php';
                     <div class="navbar-collapse-header">
                         <div class="row">
                             <div class="col-6 collapse-brand">
-                                <a href="./index.html">
+                                <a href="index.php">
                                     <img src="./assets/img/dark.svg" alt="Logo dark">
                                 </a>
                             </div>
@@ -91,7 +95,7 @@ require 'models/blog.php';
         <section class="section section-lg" id="about">
             <div class="container">
                 <form action="index.php" method="get">
-                    <div class="row row-grid align-items-center mb-5 mb-lg-7">
+                    <div class="row row-grid align-items-center ">
                         <div class="col-12 col-lg-10 order-lg-2">
                             <input type="text" name="timkiem" class="form-control" id="timkiem" required placeholder="Tìm kiếm">
                         </div>
@@ -103,17 +107,12 @@ require 'models/blog.php';
             </div>
         </section>
         <?php
-        $blog = new Blog();
-        if (isset($_GET['timkiem'])) {
-            $allBlog = $blog->getBlogByKeyWord($_GET['timkiem']);
-        } else {
-            $allBlog = $blog->getAllBlog();
-        }
+        $allBlog = isset($_GET['timkiem']) ? $blog->getBlogByKeyWord($_GET['timkiem']) : $blog->getBlogByPage($page, $perPage);
         foreach ($allBlog as $value) {
         ?>
             <section class="section section-lg" id="about">
                 <div class="container">
-                    <div class="row row-grid align-items-center mb-5 mb-lg-7">
+                    <div class="row row-grid align-items-center mb-lg-7">
                         <div class="col-12 col-lg-5 order-lg-2">
                             <h2 class="mb-4"><?php echo ($value['tieude']) ?></h2>
                             <p><?php echo ($value['noidung']) ?></p>
@@ -131,14 +130,26 @@ require 'models/blog.php';
                             </a>
                         </div>
                         <div class="col-12 col-lg-6 mr-lg-auto">
-                            <img src="./image/<?php echo ($value['hinh']) ?>" class="w-100" alt="">
+                            <img src="./image/<?php echo ($value['hinh']) ?>" class="w-100 " alt="">
                         </div>
                     </div>
                 </div>
             </section>
         <?php
         }
+        $total_pages = ceil($total / $perPage);
         ?>
+        <nav aria-label="...">
+            <ul class="pagination pagination-sm justify-content-center">
+                <?php
+                if ($total_pages > 1) {
+                    for ($i = 1; $i <= $total_pages; $i++) {
+                        echo "<li class='page-item'><a class='page-link' href='index.php?page=$i'>$i</a></li>";
+                    }
+                }
+                ?>
+            </ul>
+        </nav>
     </main>
     <footer class="footer py-5 pt-lg-6">
     </footer>

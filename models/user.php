@@ -12,5 +12,13 @@ class User extends Db{
         $result = $sql->get_result()->fetch_assoc();
         return $result['get'];
     }
+    public function getPassword($email){
+        $sql = self::$connection->prepare('SELECT * FROM user where email = ?');
+        $sql->bind_param("s", $email);
+        $sql->execute();
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items;
+    }
 }
 ?>

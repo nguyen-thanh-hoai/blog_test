@@ -2,21 +2,21 @@
 require 'db.php';
 class Blog extends Db
 {
-    public function createBlog($tieude, $noidung, $hinh)
+    public function createBlog($tieude, $noidung, $danhmuc,$hinh, $tacgia)
     {
-        $sql = self::$connection->prepare('INSERT INTO blog(tieude, noidung, hinh) VALUE (?,?,?)');
-        $sql->bind_param("sss", $tieude, $noidung, $hinh);
+        $sql = self::$connection->prepare('INSERT INTO blog(tieude, noidung, danhmuc, hinh, tacgia) VALUE (?,?,?,?,?)');
+        $sql->bind_param("sssss", $tieude, $noidung, $danhmuc, $hinh, $tacgia);
         $sql->execute();
     }
-    public function updateBlog($id, $tieude, $noidung, $hinh)
+    public function updateBlog($id, $tieude, $noidung, $danhmuc, $hinh)
     {
         if ($hinh == "") {
-            $sql = self::$connection->prepare('UPDATE blog SET tieude = ?, noidung = ? where id = ?');
-            $sql->bind_param("ssi", $tieude, $noidung, $id);
+            $sql = self::$connection->prepare('UPDATE blog SET tieude = ?, noidung = ?, danhmuc = ? where id = ?');
+            $sql->bind_param("sssi", $tieude, $noidung, $danhmuc, $id);
             $sql->execute();
         } else {
-            $sql = self::$connection->prepare('UPDATE blog SET tieude = ?, noidung = ?, hinh = ? where id = ?');
-            $sql->bind_param("sssi", $tieude, $noidung, $hinh, $id);
+            $sql = self::$connection->prepare('UPDATE blog SET tieude = ?, noidung = ?, danhmuc = ?, hinh = ? where id = ?');
+            $sql->bind_param("ssssi", $tieude, $noidung, $danhmuc, $hinh, $id);
             $sql->execute();
         }
     }
@@ -53,6 +53,14 @@ class Blog extends Db
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
         return $items;
     }
+    public function getBlogByDanhMuc($danhmuc){
+        $sql = self::$connection->prepare("SELECT * FROM blog where danhmuc like ?");
+        $sql->bind_param("s",$danhmuc);
+        $sql->execute();
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items;
+    }
 
     function getBlogByPage($page, $perPage)
     {
@@ -74,6 +82,21 @@ class Blog extends Db
         $sql = self::$connection->prepare("SELECT COUNT(*) as 'get' FROM blog where tieude like ?");
         $keywordnew = '%'.$keyword.'%';
         $sql->bind_param("s",$keywordnew);
+        $sql->execute();
+        $result = $sql->get_result()->fetch_assoc();
+        return $result['get'];
+    } 
+    public function getDanhMuc(){
+        $sql = self::$connection->prepare('SELECT DISTINCT danhmuc FROM blog');
+        $sql->execute();
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items;
+    }
+
+    public function getTotalBlogByDanhMuc($danhmuc){
+        $sql = self::$connection->prepare("SELECT COUNT(*) as 'get' FROM blog where danhmuc like ?");
+        $sql->bind_param("s",$danhmuc);
         $sql->execute();
         $result = $sql->get_result()->fetch_assoc();
         return $result['get'];

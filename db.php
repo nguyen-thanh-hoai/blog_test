@@ -10,4 +10,5 @@ class Db
         }
         return self::$connection;
     }
+
 }

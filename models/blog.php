@@ -28,6 +28,7 @@ class Blog extends Db
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
         return $items;
     }
+
     public function delete($id)
     {
         $sql = self::$connection->prepare("DELETE FROM `blog` WHERE `id` = ?");

@@ -1,5 +1,4 @@
 <?php
-require '../models/db.php';
 require '../models/user.php';
 $user = new User();
 if(isset($_POST['email'])){

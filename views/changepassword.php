@@ -14,7 +14,7 @@
       <div class="container-fluid">
         <div class="row mt-5">
           <div class="col-sm-6">
-            <h1>ĐĂNG NHẬP</h1>
+            <h1>ĐỔI MẬT KhẨU</h1>
           </div>
           <div class="mb-3">
             <a href="register.php" class="btn btn-primary">ĐĂNG KÍ</a>
@@ -30,28 +30,30 @@
             <div class="card card-primary">
               <div class="card-header">
               </div>
-              <form action="../process/loginprocess.php" method="post">
+              <form action="../process/changepasswordprocess.php" method="post">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">EMAIL</label>
-                    <input type="text" name="email" class="form-control mb-2" id="email" maxlength="100" required placeholder="Enter Email">
+                    <label for="exampleInputEmail1">MẬT KHẨU HIỆN TẠI</label>
+                    <input type="password" name="oldpassword" class="form-control mb-2" id="oldpassword" maxlength="100" required placeholder="Enter Mật Khẩu Cũ">
                   </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">MẬT KHẨU</label>
-                    <input type="password" name="password" class="form-control" id="password" maxlength="20" required placeholder="Enter Mật Khẩu">
+                  <div class="form-group mt-3">
+                    <label for="exampleInputEmail1">MẬT KHẨU MỚI</label>
+                    <input type="password" name="newpassword" class="form-control" id="newpassword" maxlength="100" required placeholder="Enter Mật Khẩu Mới">
+                  </div>
+                  <div class="form-group mt-3">
+                    <label for="exampleInputEmail1">XÁC NHẬN MẬT KHẨU MỚI </label>
+                    <input type="password" name="newpasswordagain" class="form-control" id="newpasswordagain" maxlength="100" required placeholder="Enter Xác Nhận Mật Khẩu Mới">
                   </div>
                 </div>
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">ĐĂNG NHẬP</button>
+                  <button type="submit" class="btn btn-primary">ĐỔI MẬT KHẨU</button>
                   <a href="forgotpassword.php" class="btn btn-primary" style="background-color: red;">QUÊN MẬT KHẨU</a>
                 </div>
               </form>
             </div>
           </div>
         </div>
-
       </div>
     </section>
   </div>
-
 </body>

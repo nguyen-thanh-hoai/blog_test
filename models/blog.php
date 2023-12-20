@@ -65,7 +65,7 @@ class Blog extends Db
     function getBlogByPage($page, $perPage)
     {
         $firstLink = ($page - 1) * $perPage;
-        $sql = self::$connection->prepare("SELECT * FROM blog LIMIT $firstLink, $perPage");
+        $sql = self::$connection->prepare("SELECT * FROM blog ORDER BY update_at DESC LIMIT $firstLink, $perPage");
         $sql->execute();
         $items = array();
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -73,7 +73,7 @@ class Blog extends Db
     }
     public function getBlogByDanhMucPage($danhmuc, $page, $perPage){
         $firstLink = ($page - 1) * $perPage;
-        $sql = self::$connection->prepare("SELECT * FROM blog where danhmuc like ? LIMIT $firstLink, $perPage");
+        $sql = self::$connection->prepare("SELECT * FROM blog where danhmuc like ? ORDER BY update_at DESC LIMIT $firstLink, $perPage");
         $sql->bind_param("s",$danhmuc);
         $sql->execute();
         $items = array();
@@ -82,7 +82,7 @@ class Blog extends Db
     }
     public function getBlogByKeyWordPage($keyword, $page, $perPage){
         $firstLink = ($page - 1) * $perPage;
-        $sql = self::$connection->prepare("SELECT * FROM blog where tieude like ? LIMIT $firstLink, $perPage");
+        $sql = self::$connection->prepare("SELECT * FROM blog where tieude like ? ORDER BY update_at DESC LIMIT $firstLink, $perPage");
         $keywordnew = '%'.$keyword.'%';
         $sql->bind_param("s",$keywordnew);
         $sql->execute();

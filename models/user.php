@@ -1,4 +1,5 @@
 <?php
+require 'db.php';
 class User extends Db{
     public function register($email, $password){
         $sql = self::$connection->prepare("INSERT INTO user (email, matkhau) VALUE (?,?)");
@@ -19,6 +20,18 @@ class User extends Db{
         $items = array();
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
         return $items;
+    }
+    public function checkEmail($email){
+        $sql = self::$connection->prepare("SELECT COUNT(*) as 'get' FROM user WHERE `email`=?");
+        $sql->bind_param("s", $email);
+        $sql->execute();
+        $result = $sql->get_result()->fetch_assoc();
+        return $result['get'];
+    }
+    public function updatePassword($email, $password){
+        $sql = self::$connection->prepare("UPDATE user set matkhau = ? where email = ?");
+        $sql->bind_param('ss', $password, $email);
+        $sql->execute();
     }
 }
 ?>

@@ -1,5 +1,5 @@
 <?php
-require '../models/db.php';
+
 require '../models/user.php';
 session_start();
 $user = new User();

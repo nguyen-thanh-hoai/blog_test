@@ -14,7 +14,7 @@
       <div class="container-fluid">
         <div class="row mt-5">
           <div class="col-sm-6">
-            <h1>ĐĂNG NHẬP</h1>
+            <h1>QUÊN MẬT KHẨU</h1>
           </div>
           <div class="mb-3">
             <a href="register.php" class="btn btn-primary">ĐĂNG KÍ</a>
@@ -30,20 +30,15 @@
             <div class="card card-primary">
               <div class="card-header">
               </div>
-              <form action="../process/loginprocess.php" method="post">
+              <form action="../process/forgotpasswordProcess.php" method="post">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">EMAIL</label>
                     <input type="text" name="email" class="form-control mb-2" id="email" maxlength="100" required placeholder="Enter Email">
                   </div>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">MẬT KHẨU</label>
-                    <input type="password" name="password" class="form-control" id="password" maxlength="20" required placeholder="Enter Mật Khẩu">
-                  </div>
                 </div>
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">ĐĂNG NHẬP</button>
-                  <a href="forgotpassword.php" class="btn btn-primary" style="background-color: red;">QUÊN MẬT KHẨU</a>
+                  <button type="submit" class="btn btn-primary">NHẬN MẬT KHẨU MỚI</button>
                 </div>
               </form>
             </div>

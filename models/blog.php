@@ -71,6 +71,25 @@ class Blog extends Db
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
         return $items;
     }
+    public function getBlogByDanhMucPage($danhmuc, $page, $perPage){
+        $firstLink = ($page - 1) * $perPage;
+        $sql = self::$connection->prepare("SELECT * FROM blog where danhmuc like ? LIMIT $firstLink, $perPage");
+        $sql->bind_param("s",$danhmuc);
+        $sql->execute();
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items;
+    }
+    public function getBlogByKeyWordPage($keyword, $page, $perPage){
+        $firstLink = ($page - 1) * $perPage;
+        $sql = self::$connection->prepare("SELECT * FROM blog where tieude like ? LIMIT $firstLink, $perPage");
+        $keywordnew = '%'.$keyword.'%';
+        $sql->bind_param("s",$keywordnew);
+        $sql->execute();
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items;
+    }
 
     public function getTotalBlog(){
         $sql = self::$connection->prepare("SELECT COUNT(*) as 'get' FROM blog");

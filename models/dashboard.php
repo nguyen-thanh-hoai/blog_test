@@ -1,16 +1,13 @@
 <?php
 require 'blog.php';
 session_start();
+if(isset($_SESSION['email'])){
 $blog = new Blog();
-if(isset($_GET['timkiem'])) {
+if (isset($_GET['timkiem'])) {
     $total =  $blog->getTotalBlogByKeyWord($_GET['timkiem']);
-    $check = 1;
-}
-else if(isset($_GET['danhmuc'])){
+} else if (isset($_GET['danhmuc'])) {
     $total = $blog->getTotalBlogByDanhMuc($_GET['danhmuc']);
-    $check = 2;
-}
-else{
+} else {
     $total =  $blog->getTotalBlog();
 }
 
@@ -19,39 +16,22 @@ $perPage = 2;
 $danhmuc = $blog->getDanhMuc();
 ?>
 <!-- Primary Meta Tags -->
-<title>Swipe - Mobile App One Page Bootstrap 5 Template</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="title" content="Swipe - Mobile App One Page Bootstrap 5 Template">
-<meta name="author" content="Themesberg">
-<meta name="description" content="Free Mobile Application One Page Bootstrap 5 Template by Themesberg">
-<meta name="keywords" content="bootstrap, bootstrap 5, bootstrap 5 one page, bootstrap 5 mobile application, one page template, bootstrap 5 one page template, themesberg, themesberg one page, one page template bootstrap 5" />
-<link rel="canonical" href="https://themesberg.com/product/bootstrap/swipe-free-mobile-app-one-page-bootstrap-5-template">
+<title>Blog-Test</title>
 
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://demo.themesberg.com/swipe/">
-<meta property="og:title" content="Swipe - Mobile App One Page Bootstrap 5 Template">
-<meta property="og:description" content="Free Mobile Application One Page Bootstrap 5 Template by Themesberg">
-<meta property="og:image" content="https://themesberg.s3.us-east-2.amazonaws.com/public/products/swipe/swipe-thumbnail.jpg">
-
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://demo.themesberg.com/swipe/">
-<meta property="twitter:title" content="Swipe - Mobile App One Page Bootstrap 5 Template">
-<meta property="twitter:description" content="Free Mobile Application One Page Bootstrap 5 Template by Themesberg">
-<meta property="twitter:image" content="https://themesberg.s3.us-east-2.amazonaws.com/public/products/swipe/swipe-thumbnail.jpg">
-
-
-
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+</style>
 <!-- Swipe CSS -->
 <link type="text/css" href="../css/swipe.css" rel="stylesheet">
 <div class="row">
     <div class="col-1">
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-            <div class="sidebar col-1">
-                <nav class="mt-2">
+        <aside class="main-sidebar sidebar-dark-primary ">
+            <div class="sidebar">
+                <nav class="">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item menu-open">
+                        <li class="nav-item">
                             <a href="dashboard.php" class="nav-link bg-dark">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
                                 <p style="color: #fff;">
@@ -60,23 +40,22 @@ $danhmuc = $blog->getDanhMuc();
                             </a>
                         </li>
                         <?php
-                        foreach($danhmuc as $danhmucvalue){
+                        foreach ($danhmuc as $danhmucvalue) {
                         ?>
-                        <li class="nav-item">
-                            <a href="dashboard.php?danhmuc=<?php echo $danhmucvalue['danhmuc']?>" class="nav-link text-center">
-                                <p>
-                                    <?php echo $danhmucvalue['danhmuc']?>
-                                </p>
-                            </a>
-                        </li>
+                            <li class="nav-item text-center mt--3">
+                                <a href="dashboard.php?danhmuc=<?php echo $danhmucvalue['danhmuc'] ?>" class="nav-link">
+                                    <p>
+                                        <b><?php echo $danhmucvalue['danhmuc'] ?></b>
+                                    </p>
+                                </a>
+                            </li>
                         <?php } ?>
                     </ul>
                 </nav>
             </div>
         </aside>
     </div>
-    <div class="col-11">
-
+    <div class="col-10">
         <body>
             <header class="header-global" id="home">
                 <nav id="navbar-main" aria-label="Primary navigation" class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light navbar-theme-secondary">
@@ -88,7 +67,7 @@ $danhmuc = $blog->getDanhMuc();
                             <div class="navbar-collapse-header">
                                 <div class="row">
                                     <div class="col-6 collapse-brand">
-                                        
+
                                     </div>
                                     <div class="col-6 collapse-close">
                                         <a href="#navbar_global" class="fas fa-times" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" title="close" aria-label="Toggle navigation"></a>
@@ -106,14 +85,14 @@ $danhmuc = $blog->getDanhMuc();
                         <div class="d-flex align-items-center">
                             <?php
                             $email = 'null';
-                            if(isset($_SESSION['email'])){
+                            if (isset($_SESSION['email'])) {
                                 $email = $_SESSION['email'];
                             }
-                            
+
                             ?>
                             <h3 class=" d-none d-md-inline mr-md-3">Xin chào: <?php echo $email ?></h3>
-                            <a href="../process/logoutprocess.php" class="btn btn-outline-soft d-none d-md-inline mb-3 mr-md-3 animate-up-2">ĐĂNG XUẤT</a>
-                            <button class="navbar-toggler ml-2" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+                            <a href="../process/logoutprocess.php" class="btn btn-outline-soft d-none d-md-inline mb-3 mr-md-3 animate-up-2" style="font-family: Arial, sans-serif;">ĐĂNG XUẤT</a>
+                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                         </div>
@@ -137,13 +116,11 @@ $danhmuc = $blog->getDanhMuc();
                 </section>
                 <?php
                 $stt = 1;
-                if(isset($_GET['timkiem'])) {
-                    $allBlog = $blog->getBlogByKeyWord($_GET['timkiem']);
-                }
-                else if(isset($_GET['danhmuc'])){
-                    $allBlog = $blog->getBlogByDanhMuc($_GET['danhmuc']);
-                }
-                else{
+                if (isset($_GET['timkiem'])) {
+                    $allBlog = $blog->getBlogByKeyWordPage($_GET['timkiem'], $page, $perPage);
+                } else if (isset($_GET['danhmuc'])) {
+                    $allBlog = $blog->getBlogByDanhMucPage($_GET['danhmuc'], $page, $perPage);
+                } else {
                     $allBlog = $blog->getBlogByPage($page, $perPage);
                 }
                 ?>
@@ -160,26 +137,26 @@ $danhmuc = $blog->getDanhMuc();
                         </thead>
                         <tbody>
                             <?php foreach ($allBlog as $value) { ?>
-                            <tr>
-                                <td class="text-start"><?php echo $stt++ ?></td>
-                                <td><?php echo $value['tieude']?></td>
-                                <td><?php echo $value['danhmuc']?></td>
-                                <td><?php echo $value['tacgia']?></td>
-                                <td>
-                                <a href="../views/updateblog.php?id=<?php echo $value['id']?>" class="btn btn-dark animate-up-2">
-                                    Update
-                                    <span class="icon icon-xs ">
-                                        <i class="fas fa-external-link-alt"></i>
-                                    </span>
-                                </a>
-                                <a href="../process/deleteblogprocess.php?id=<?php echo $value['id']?>" class="btn btn-dark animate-up-2">
-                                    Delete
-                                    <span class="icon icon-xs ">
-                                        <i class="fas fa-external-link-alt"></i>
-                                    </span>
-                                </a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td class="text-start"><?php echo $stt++ ?></td>
+                                    <td><?php echo $value['tieude'] ?></td>
+                                    <td><?php echo $value['danhmuc'] ?></td>
+                                    <td><?php echo $value['tacgia'] ?></td>
+                                    <td>
+                                        <a href="../views/updateblog.php?id=<?php echo $value['id'] ?>" class="btn btn-dark animate-up-2">
+                                            Update
+                                            <span class="icon icon-xs ">
+                                                <i class="fas fa-external-link-alt"></i>
+                                            </span>
+                                        </a>
+                                        <a href="../process/deleteblogprocess.php?id=<?php echo $value['id'] ?>" class="btn btn-dark animate-up-2">
+                                            Delete
+                                            <span class="icon icon-xs ">
+                                                <i class="fas fa-external-link-alt"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+                                </tr>
                             <?php } ?>
                         </tbody>
                     </table>
@@ -190,9 +167,27 @@ $danhmuc = $blog->getDanhMuc();
                 <nav aria-label="...">
                     <ul class="pagination pagination-sm justify-content-center">
                         <?php
-                        if ($total_pages > 1) {
-                            for ($i = 1; $i <= $total_pages; $i++) {
-                                echo "<li class='page-item'><a class='page-link' href='dashboard.php?page=$i'>$i</a></li>";
+                        if(isset($_GET['timkiem'])){
+                            $timkiem = $_GET['timkiem'];
+                            if ($total_pages > 1) {
+                                for ($i = 1; $i <= $total_pages; $i++) {
+                                    echo "<li class='page-item'><a class='page-link' href='dashboard.php?timkiem=$timkiem$&page=$i'>$i</a></li>";
+                                }
+                            }
+                        }
+                        else if(isset($_GET['danhmuc'])){
+                            $danhmuc = $_GET['danhmuc'];
+                            if ($total_pages > 1) {
+                                for ($i = 1; $i <= $total_pages; $i++) {
+                                    echo "<li class='page-item'><a class='page-link' href='dashboard.php?danhmuc=$danhmuc&page=$i'>$i</a></li>";
+                                }
+                            }
+                        }
+                        else{
+                            if ($total_pages > 1) {
+                                for ($i = 1; $i <= $total_pages; $i++) {
+                                    echo "<li class='page-item'><a class='page-link' href='dashboard.php?page=$i'>$i</a></li>";
+                                }
                             }
                         }
                         ?>
@@ -201,10 +196,9 @@ $danhmuc = $blog->getDanhMuc();
             </main>
             <footer class="footer py-5 pt-lg-6">
             </footer>
-
-
-
-
         </body>
     </div>
 </div>
+<?php
+}
+?>

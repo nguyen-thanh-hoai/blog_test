@@ -28,10 +28,15 @@
       ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
     });
   </script>
+  <style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+</style>
 </head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- Primary Meta Tags -->
-<title>Swipe - Mobile App One Page Bootstrap 5 Template</title>
+<title>Blog-Test</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="title" content="Swipe - Mobile App One Page Bootstrap 5 Template">
 <meta name="author" content="Themesberg">
@@ -53,10 +58,11 @@
 <meta property="twitter:description" content="Free Mobile Application One Page Bootstrap 5 Template by Themesberg">
 <meta property="twitter:image" content="https://themesberg.s3.us-east-2.amazonaws.com/public/products/swipe/swipe-thumbnail.jpg">
 
-
-
 <!-- Swipe CSS -->
 <link type="text/css" href="../css/swipe.css" rel="stylesheet">
+
+
+<body>
 <div class="content-wrapper">
   <section class="content-header">
     <div class="container-fluid">
@@ -79,19 +85,19 @@
               <div class="card-body">
                 <div class="form-group">
                   <label for="">Tiêu đề</label>
-                  <input type="text" name="tieude" class="form-control" id="tieude" required placeholder="Enter tiêu đề">
+                  <input type="text" name="tieude" class="form-control" id="tieude" maxlength="255" required placeholder="Enter tiêu đề">
                 </div>
                 <div class="form-group">
                   <label for="">Nội dung</label>
-                  <textarea class="textarea" name="noidung" id="noidung" cols="30" rows="10"></textarea>
+                  <textarea class="textarea" name="noidung" id="noidung" maxlength="500" cols="30" rows="10"></textarea>
                 </div>
                 <div class="form-group">
                   <label for="">Danh mục</label>
-                  <input type="text" name="danhmuc" class="form-control" id="danhmuc" required placeholder="Enter danh mục">
+                  <input type="text" name="danhmuc" class="form-control" id="danhmuc" maxlength="100" required placeholder="Enter danh mục">
                 </div>
                 <div class="form-group">
                   <label for="">Hình</label>
-                  <input type="file" name="hinh" class="form-control" required id="hinh">
+                  <input type="file" name="hinh" class="form-control" maxlength="100" required id="hinh">
                 </div>
               </div>
               <div class="card-footer">
@@ -104,3 +110,4 @@
     </div>
   </section>
 </div>
+</body>

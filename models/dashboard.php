@@ -56,7 +56,7 @@ $danhmuc = $blog->getDanhMuc();
         </aside>
     </div>
     <div class="col-10">
-        <body>
+        <body style="font-family: Arial, sans-serif;">
             <header class="header-global" id="home">
                 <nav id="navbar-main" aria-label="Primary navigation" class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light navbar-theme-secondary">
                     <div class="container position-relative">
@@ -129,9 +129,10 @@ $danhmuc = $blog->getDanhMuc();
                         <thead>
                             <tr>
                                 <th scope="col" style="width: 1%">STT</th>
-                                <th scope="col" style="width: 50%">Tiêu đề</th>
+                                <th scope="col" style="width: 30%">Tiêu đề</th>
                                 <th scope="col" style="width: 15%">Danh mục</th>
                                 <th scope="col" style="width: 15%">Tác giả</th>
+                                <th scope="col" style="width: 20%">Ngày cập nhật</th>
                                 <th scope="col" style="width: 20%">Thao tác</th>
                             </tr>
                         </thead>
@@ -142,6 +143,7 @@ $danhmuc = $blog->getDanhMuc();
                                     <td><?php echo $value['tieude'] ?></td>
                                     <td><?php echo $value['danhmuc'] ?></td>
                                     <td><?php echo $value['tacgia'] ?></td>
+                                    <td><?php echo $value['update_at'] ?></td>
                                     <td>
                                         <a href="../views/updateblog.php?id=<?php echo $value['id'] ?>" class="btn btn-dark animate-up-2">
                                             Update

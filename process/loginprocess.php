@@ -13,12 +13,10 @@ if (isset($_POST['email'])) {
         exit;
     }
 
-    if (!password_verify($password, $getPassword[0]['matkhau'])) {
+    if (password_verify($password, $getPassword[0]['matkhau'])) {
         $_SESSION['email'] = $email;
         header('location:../models/dashboard.php');
     } else {
         header('location:../views/login.php');
-        echo "Sai mật khẩu";
-        echo $getPassword[0]['matkhau'];
     }
 }

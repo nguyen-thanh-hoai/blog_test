@@ -1,4 +1,3 @@
-
 <title>Blog-Test</title>
 
 <!-- Swipe CSS -->
@@ -16,6 +15,9 @@
         <div class="row mt-5">
           <div class="col-sm-6">
             <h1>ĐĂNG NHẬP</h1>
+          </div>
+          <div class="mb-3">
+            <a href="register.php" class="btn btn-primary">ĐĂNG KÍ</a>
           </div>
         </div>
       </div>

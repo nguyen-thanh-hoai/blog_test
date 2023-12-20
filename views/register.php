@@ -18,6 +18,9 @@
         <div class="col-sm-6">
           <h1>ĐĂNG KÍ</h1>
         </div>
+        <div class="mb-3">
+            <a href="login.php" class="btn btn-primary">ĐĂNG NHẬP</a>
+          </div>
       </div>
     </div>
   </section>
@@ -32,11 +35,11 @@
             <form action="../process/registerprocess.php" method="post">
               <div class="card-body">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">User name</label>
+                  <label for="exampleInputEmail1">EMAIL</label>
                   <input type="text" name="email" class="form-control" id="email" maxlength="100" required placeholder="Enter email">
                 </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Password</label>
+                <div class="form-group mt-2">
+                  <label for="exampleInputEmail1">PASSWORD</label>
                   <input type="password" name="password" class="form-control" id="password" maxlength="20" required placeholder="Enter password">
                 </div>
               </div>

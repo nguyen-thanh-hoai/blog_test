@@ -1,5 +1,5 @@
 <?php
-require 'blog.php';
+require '../models/blog.php';
 session_start();
 if (isset($_SESSION['email'])) {
     $blog = new Blog();
@@ -36,17 +36,20 @@ if (isset($_SESSION['email'])) {
                             </p>
                         </a>
                     </li>
-                    <?php
-                    foreach ($danhmuc as $danhmucvalue) {
-                    ?>
-                        <li class="nav-item">
-                            <a href="dashboard.php?danhmuc=<?php echo $danhmucvalue['danhmuc'] ?>" class="nav-link">
-                                <p>
-                                    <b><?php echo $danhmucvalue['danhmuc'] ?>(<?php echo $blog->getTotalBlogByDanhMuc($danhmucvalue['danhmuc']) ?>)</b>
-                                </p>
-                            </a>
-                        </li>
-                    <?php } ?>
+                    <li class="nav-item">
+                        <a href="dashboardUser.php" class="nav-link bg-dark">
+                            <p style="color: #fff;">
+                                User
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="dashboardBlog.php" class="nav-link bg-dark">
+                            <p style="color: #fff;">
+                                Blog
+                            </p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -99,7 +102,7 @@ if (isset($_SESSION['email'])) {
                     </a>
                 </div>
                 <?php
-                $stt = 1;
+                $stt = (($page - 1) * $perPage) + 1;
                 if (isset($_GET['timkiem'])) {
                     $allBlog = $blog->getBlogByKeyWordPage($_GET['timkiem'], $page, $perPage);
                 } else if (isset($_GET['danhmuc'])) {
@@ -181,5 +184,8 @@ if (isset($_SESSION['email'])) {
         </div>
     </div>
 <?php
+}
+else{
+    die("Cảnh báo: Bạn không có quyền truy cập!!!");
 }
 ?>

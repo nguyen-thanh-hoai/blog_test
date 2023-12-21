@@ -12,6 +12,9 @@ if(isset($_POST['tieude'])){
     $target_file1 = $target_dir1.basename($_FILES["hinh"]["name"]);   
     move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file1);
     $blog->createBlog($tieude, $noidung, $danhmuc,$image,$tacgia);
-    header('location:../models/dashboard.php');
+    header('location:../views/dashboardBlog.php');
+}
+else{
+    die("Cảnh báo: Lỗi");
 }
 ?>

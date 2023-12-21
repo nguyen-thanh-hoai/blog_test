@@ -7,6 +7,9 @@ if(isset($_GET['id'])){
     $image = '../image/'. $getBlog[0]['hinh'];
     $blog->delete($id);
     unlink($image);
-    header('location:../models/dashboard.php');
+    header('location:../views/dashboardBlog.php');
+}
+else{
+    die("Cảnh báo: Lỗi");
 }
 ?>

@@ -17,7 +17,7 @@ if (isset($_POST['email'])) {
   $password = password_hash($string, PASSWORD_DEFAULT);
 
   $user->updatePassword($email, $password);
-  $subject = "Mật khẩu mới";
+  $subject = "Quen Mat Khau";
   $body = "Mật khẩu mới của bạn là: $string";
 
   //gui mail
@@ -40,9 +40,12 @@ if (isset($_POST['email'])) {
       echo "Mailer Error: " . $mail->ErrorInfo;
    } else {
     echo "Mật khẩu mới đã được gửi đến email của bạn.";
+    header('location:../views/login.php');
    }
-
   echo "Mật khẩu mới đã được gửi đến email của bạn.";
+}
+else{
+  die("Cảnh báo: Lỗi");
 }
 
 ?>

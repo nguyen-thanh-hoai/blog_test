@@ -15,8 +15,11 @@ if (isset($_POST['email'])) {
 
     if (password_verify($password, $getPassword[0]['matkhau'])) {
         $_SESSION['email'] = $email;
-        header('location:../models/dashboard.php');
+        header('location:../views/dashboard.php');
     } else {
         header('location:../views/login.php');
     }
+}
+else{
+    die("Cảnh báo: Lỗi");
 }

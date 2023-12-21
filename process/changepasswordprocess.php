@@ -16,11 +16,11 @@ if (isset($_SESSION['email'])) {
                 header('location:../views/login.php');
             }
         } else {
-            echo 'sai pass';
+            echo 'sai password';
         }
     }else{
-        echo 'khong co old';
+        die("Cảnh báo: Lỗi");
     }
 }else{
-    echo 'khong co e';
+    die("Cảnh báo: Lỗi");
 }

@@ -24,6 +24,7 @@ $danhmuc = $blog->getDanhMuc();
     <link type="text/css" href="../css/swipe.css" rel="stylesheet">
 </head>
 
+
 <body style="font-family: Arial, sans-serif;">
     <div class="row">
         <div class="col-md-2 col-2 mt-5">

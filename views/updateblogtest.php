@@ -42,9 +42,9 @@
 <link type="text/css" href="../css/swipe.css" rel="stylesheet">
 
 <?php
-require '../models/blog.php';
+require '../models/blog_test.php';
 if (isset($_GET['id'])) {
-  $blog = new Blog();
+  $blog = new BlogTest();
   $getBlog = $blog->getBlogById($_GET['id']);
 ?>
 
@@ -67,7 +67,7 @@ if (isset($_GET['id'])) {
               <div class="card card-primary">
                 <div class="card-header">
                 </div>
-                <form action="../process/updateblogprocess.php" method="post" enctype="multipart/form-data">
+                <form action="../process/updateblogtestprocess.php" method="post" enctype="multipart/form-data">
                   <div class="card-body">
                     <div class="form-group">
                       <label for="">Tiêu đề</label>

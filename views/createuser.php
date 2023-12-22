@@ -39,6 +39,10 @@
                                         <label for="exampleInputEmail1">PASSWORD</label>
                                         <input type="password" name="password" class="form-control" id="password" maxlength="20" required placeholder="Enter password">
                                     </div>
+                                    <div class="form-group mt-2">
+                                        <label for="exampleInputEmail1">ROLE</label>
+                                        <input type="text" name="role" class="form-control" id="role" maxlength="10" required placeholder="Enter role">
+                                    </div>
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">THÊM</button>

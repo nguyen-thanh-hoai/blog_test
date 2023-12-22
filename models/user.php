@@ -2,10 +2,10 @@
 require 'db.php';
 class User extends Db
 {
-    public function register($email, $password)
+    public function register($email, $password, $vitri)
     {
-        $sql = self::$connection->prepare("INSERT INTO user (email, matkhau) VALUE (?,?)");
-        $sql->bind_param("ss", $email, $password);
+        $sql = self::$connection->prepare("INSERT INTO user (email, matkhau, vitri) VALUE (?,?,?)");
+        $sql->bind_param("sss", $email, $password, $vitri);
         $sql->execute();
     }
     public function login($email, $password)
@@ -17,6 +17,15 @@ class User extends Db
         return $result['get'];
     }
     public function getPassword($email)
+    {
+        $sql = self::$connection->prepare('SELECT * FROM user where email = ?');
+        $sql->bind_param("s", $email);
+        $sql->execute();
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items;
+    }
+    public function getUserByEmail($email)
     {
         $sql = self::$connection->prepare('SELECT * FROM user where email = ?');
         $sql->bind_param("s", $email);
@@ -53,16 +62,16 @@ class User extends Db
         $sql->bind_param("i", $id);
         return $sql->execute();
     }
-    public function updateUser($email, $password, $id)
+    public function updateUser($email, $password, $vitri, $id)
     {
         if ($password != '') {
-            $sql = self::$connection->prepare("UPDATE `user` set email = ?, matkhau = ? WHERE `id` = ?");
-            $sql->bind_param("ssi",$email, $password, $id);
+            $sql = self::$connection->prepare("UPDATE `user` set email = ?, matkhau = ?, vitri = ? WHERE `id` = ?");
+            $sql->bind_param("sssi",$email, $password, $vitri,$id);
             return $sql->execute();
         }
         else{
-            $sql = self::$connection->prepare("UPDATE `user` set email = ? WHERE `id` = ?");
-            $sql->bind_param("si",$email, $id);
+            $sql = self::$connection->prepare("UPDATE `user` set email = ?, vitri = ?  WHERE `id` = ?");
+            $sql->bind_param("ssi",$email, $vitri , $id);
             return $sql->execute();
         }
     }

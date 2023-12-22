@@ -1,7 +1,7 @@
 <?php
-require '../models/blog.php';
+require '../models/blog_test.php';
 session_start();
-$blog = new Blog();
+$blog = new BlogTest();
 if(isset($_POST['tieude'])){
     $tieude = $_POST['tieude'];
     $noidung = $_POST['noidung'];
@@ -13,7 +13,7 @@ if(isset($_POST['tieude'])){
     $target_file1 = $target_dir1.basename($_FILES["hinh"]["name"]);   
     move_uploaded_file($_FILES["hinh"]["tmp_name"], $target_file1);
     $blog->createBlog($tieude, $noidung, $danhmuc,$image,$tacgia,$the);
-    header('location:../views/dashboardBlog.php');
+    header('location:../views/dashboardBlogTest.php');
 }
 else{
     die("Cảnh báo: Lỗi");

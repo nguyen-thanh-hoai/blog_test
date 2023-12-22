@@ -81,7 +81,7 @@
           <div class="card card-primary">
             <div class="card-header">
             </div>
-            <form action="../process/createblogprocess.php" method="post" enctype="multipart/form-data">
+            <form action="../process/createblogtestprocess.php" method="post" enctype="multipart/form-data">
               <div class="card-body">
                 <div class="form-group">
                   <label for="">Tiêu đề</label>

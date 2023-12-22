@@ -1,6 +1,6 @@
 <?php
-require '../models/blog.php';
-$blog = new Blog();
+require '../models/blog_test.php';
+$blog = new BlogTest();
 if(isset($_GET['id'])){
     $key = '';
     if(isset($_GET['timkiem'])){
@@ -17,7 +17,7 @@ if(isset($_GET['id'])){
     $image = '../image/'. $getBlog[0]['hinh'];
     $blog->delete($id);
     unlink($image);
-    header("location:../views/dashboardBlog.php?$key");
+    header("location:../views/dashboardBlogTest.php?$key");
 }
 else{
     die("Cảnh báo: Lỗi");

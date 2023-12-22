@@ -3,12 +3,21 @@ require '../models/blog.php';
 session_start();
 if (isset($_SESSION['email'])) {
     $blog = new Blog();
+    $key = '';
     if (isset($_GET['timkiem'])) {
         $total =  $blog->getTotalBlogByKeyWord($_GET['timkiem']);
+        $key = $key . 'timkiem=' . $_GET['timkiem'] . '&';
     } else if (isset($_GET['danhmuc'])) {
         $total = $blog->getTotalBlogByDanhMuc($_GET['danhmuc']);
+        $key = $key . 'danhmuc=' . $_GET['danhmuc'] . '&';
+    } else if (isset($_GET['the'])) {
+        $total = $blog->getTotalBlogByTag($_GET['the']);
+        $key = $key . 'the=' . $_GET['the'] . '&';
     } else {
         $total =  $blog->getTotalBlog();
+    }
+    if (isset($_GET['page'])) {
+        $key = $key . 'page=' . $_GET['page'] . '&';
     }
 
     $page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -49,6 +58,19 @@ if (isset($_SESSION['email'])) {
                     <?php } ?>
                 </ul>
             </div>
+            <div class="sidebar">
+                <h1>Thẻ</h1>
+                <ul class="nav nav-pills nav-sidebar" data-widget="treeview" role="menu" data-accordion="false">
+                    <?php
+                    $allTag = $blog->getAllTag();
+                    foreach ($allTag as $valueTag) {
+                    ?>
+                        <div class="mt-2">
+                            <a href="dashboardBlog.php?the=<?php echo $valueTag['the'] ?>"><span class="border p-1 ml-2"><?php echo $valueTag['the'] ?></span></a>
+                        </div>
+                    <?php } ?>
+                </ul>
+            </div>
         </div>
         <div class="col-md-10 col-10">
 
@@ -82,10 +104,10 @@ if (isset($_SESSION['email'])) {
 
                 </header>
                 <div class="container">
-                    <form action="dashboard.php" method="get">
+                    <form action="dashboardBlog.php" method="get">
                         <div class="row row-grid align-items-center ">
                             <div class="col-10 col-lg-10 order-lg-2">
-                                <input type="text" name="timkiem" class="form-control" id="timkiem" required placeholder="Tìm kiếm">
+                                <input type="text" value="<?php echo $timkiem = isset($_GET['timkiem']) ? $_GET['timkiem'] : '' ?>" name="timkiem" class="form-control" id="timkiem" required placeholder="Tìm kiếm">
                             </div>
                             <div class="col-2 col-lg-2 order-lg-2">
                                 <button type="submit" class="btn btn-primary">Tìm kiếm</button>
@@ -94,7 +116,17 @@ if (isset($_SESSION['email'])) {
                     </form>
                 </div>
                 <div class=" offset-md-9 btn btn-primary">
-                    <a href="../views/createblog.php?>" class="nav-link" style="color: #fff">
+                    <?php
+                    $canCreate = "../views/createblog.php";
+                    $notCreate = "../views/dashboardBlog.php";
+                    $can = '';
+                    if ($_SESSION['role'] != 2) {
+                        $can = $canCreate;
+                    } else {
+                        $can = $notCreate;
+                    }
+                    ?>
+                    <a href="<?php echo $can ?>" class="nav-link" style="color: #fff">
                         CREATE
                     </a>
                 </div>
@@ -104,6 +136,8 @@ if (isset($_SESSION['email'])) {
                     $allBlog = $blog->getBlogByKeyWordPage($_GET['timkiem'], $page, $perPage);
                 } else if (isset($_GET['danhmuc'])) {
                     $allBlog = $blog->getBlogByDanhMucPage($_GET['danhmuc'], $page, $perPage);
+                } else if (isset($_GET['the'])) {
+                    $allBlog = $blog->getBlogByTagPage($_GET['the'], $page, $perPage);
                 } else {
                     $allBlog = $blog->getBlogByPage($page, $perPage);
                 }
@@ -129,13 +163,29 @@ if (isset($_SESSION['email'])) {
                                     <td><?php echo $value['tacgia'] ?></td>
                                     <td><?php echo $value['update_at'] ?></td>
                                     <td>
-                                        <a href="../views/updateblog.php?id=<?php echo $value['id'] ?>" class="btn btn-dark animate-up-2">
+                                        <?php
+                                        $id = $value['id'];
+                                        $update = '';
+                                        $delete = '';
+                                        $canUpdate = "../views/updateblog.php?id=$id";
+                                        $notUpdate = "../views/dashboardBlog.php";
+                                        $canDelete = "../process/deleteblogprocess.php?id=$id&$key";
+                                        $notDelete = "../views/dashboardBlog.php";
+                                        if ($_SESSION['role'] != 2) {
+                                            $update = $canCreate;
+                                            $delete = $canDelete;
+                                        } else {
+                                            $update = $notCreate;
+                                            $delete = $notDelete;
+                                        }
+                                        ?>
+                                        <a href="<?php echo $update?>" class="btn btn-dark animate-up-2">
                                             Update
                                             <span class="icon icon-xs ">
                                                 <i class="fas fa-external-link-alt"></i>
                                             </span>
                                         </a>
-                                        <a href="../process/deleteblogprocess.php?id=<?php echo $value['id'] ?>" class="btn btn-dark animate-up-2">
+                                        <a href="<?php echo $delete?>" class="btn btn-dark animate-up-2">
                                             Delete
                                             <span class="icon icon-xs ">
                                                 <i class="fas fa-external-link-alt"></i>
@@ -165,6 +215,13 @@ if (isset($_SESSION['email'])) {
                             if ($total_pages > 1) {
                                 for ($i = 1; $i <= $total_pages; $i++) {
                                     echo "<li class='page-item'><a class='page-link' href='dashboardBlog.php?danhmuc=$danhmuc&page=$i'>$i</a></li>";
+                                }
+                            }
+                        } else if (isset($_GET['the'])) {
+                            $the = $_GET['the'];
+                            if ($total_pages > 1) {
+                                for ($i = 1; $i <= $total_pages; $i++) {
+                                    echo "<li class='page-item'><a class='page-link' href='dashboardBlog.php?the=$the&page=$i'>$i</a></li>";
                                 }
                             }
                         } else {

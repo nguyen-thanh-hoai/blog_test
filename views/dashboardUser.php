@@ -5,7 +5,7 @@ if (isset($_SESSION['email'])) {
     $user = new User();
     if (isset($_GET['timkiem'])) {
         $total = $user->getTotalUserByKeyWord($_GET['timkiem']);
-    }else{
+    } else {
         $total = $user->getTotalUser();
     }
     $page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -39,35 +39,35 @@ if (isset($_SESSION['email'])) {
         <div class="col-md-10 col-10">
 
             <body style="font-family: Arial, sans-serif;">
-                    <nav id="navbar-main" aria-label="Primary navigation" class="navbar headroom navbar-light ">
-                        <div class="container position-relative">
-                            <div class="row">
-                                <div class="col-1 col-md-1 mt-3">
-                                    <a class="navbar-brand" href="../views/index.php">
-                                        <img class="navbar-brand-light " src="../image/logo.png" alt="Logo dark">
-                                    </a>
-                                </div>
-                                <div class="col-11 col-md-11">
-                                    <div class="d-flex align-items-center offset-4">
-                                        <?php
-                                        $email = 'null';
-                                        if (isset($_SESSION['email'])) {
-                                            $email = $_SESSION['email'];
-                                        }
-                                        ?>
-                                        <h5 class="mr-md-3">Xin chào: <?php echo $email ?></h3>
-                                            <a href="../views/changepassword.php" class="btn btn-outline-soft d-none d-md-inline mb-3 mr-md-3 animate-up-2" style="font-family: Arial, sans-serif;">ĐỔI MẬT KHẨU</a>
-                                            <a href="../process/logoutprocess.php" class="btn btn-outline-soft d-none d-md-inline mb-3 mr-md-3 animate-up-2" style="font-family: Arial, sans-serif;">ĐĂNG XUẤT</a>
-                                    </div>
+                <nav id="navbar-main" aria-label="Primary navigation" class="navbar headroom navbar-light ">
+                    <div class="container position-relative">
+                        <div class="row">
+                            <div class="col-1 col-md-1 mt-3">
+                                <a class="navbar-brand" href="../views/index.php">
+                                    <img class="navbar-brand-light " src="../image/logo.png" alt="Logo dark">
+                                </a>
+                            </div>
+                            <div class="col-11 col-md-11">
+                                <div class="d-flex align-items-center offset-4">
+                                    <?php
+                                    $email = 'null';
+                                    if (isset($_SESSION['email'])) {
+                                        $email = $_SESSION['email'];
+                                    }
+                                    ?>
+                                    <h5 class="mr-md-3">Xin chào: <?php echo $email ?></h3>
+                                        <a href="../views/changepassword.php" class="btn btn-outline-soft d-none d-md-inline mb-3 mr-md-3 animate-up-2" style="font-family: Arial, sans-serif;">ĐỔI MẬT KHẨU</a>
+                                        <a href="../process/logoutprocess.php" class="btn btn-outline-soft d-none d-md-inline mb-3 mr-md-3 animate-up-2" style="font-family: Arial, sans-serif;">ĐĂNG XUẤT</a>
                                 </div>
                             </div>
                         </div>
-                    </nav>
+                    </div>
+                </nav>
                 <div class="container">
                     <form action="dashboardUser.php" method="get">
                         <div class="row row-grid align-items-center ">
                             <div class="col-10 col-lg-10 order-lg-2">
-                                <input type="text" name="timkiem" class="form-control" id="timkiem" required placeholder="Tìm kiếm">
+                                <input type="text" value="<?php echo $timkiem = isset($_GET['timkiem']) ? $_GET['timkiem'] : '' ?>" name="timkiem" class="form-control" id="timkiem" required placeholder="Tìm kiếm">
                             </div>
                             <div class="col-2 col-lg-2 order-lg-2">
                                 <button type="submit" class="btn btn-primary">Tìm kiếm</button>
@@ -76,7 +76,15 @@ if (isset($_SESSION['email'])) {
                     </form>
                 </div>
                 <div class=" offset-md-9 btn btn-primary">
-                    <a href="../views/createuser.php" class="nav-link" style="color: #fff">
+                    <?php
+                    $canCreate = '../views/createuser.php';
+                    $notCreate = '../views/dashboardUser.php' ?>
+                    <a href="<?php if ($_SESSION['role'] == 0) {
+                                    echo $canCreate;
+                                } else {
+                                    echo $notCreate;
+                                }
+                                ?>" class="nav-link" style="color: #fff">
                         CREATE
                     </a>
                 </div>
@@ -105,13 +113,32 @@ if (isset($_SESSION['email'])) {
                                     <td><?php echo $value['email'] ?></td>
                                     <td><?php echo $value['update_at'] ?></td>
                                     <td>
-                                        <a href="../views/updateuser.php?id=<?php echo $value['id'] ?>" class="btn btn-dark animate-up-2">
+                                        <?php
+                                        $id = $value['id'];
+                                        $canUpdate = "../views/updateuser.php?id=$id";
+                                        $notUpdate = "../views/dashboardUser.php";
+                                        ?>
+                                        <a href="<?php if ($_SESSION['role'] == 0) {
+                                                        echo $canUpdate;
+                                                    } else {
+                                                        echo $notUpdate;
+                                                    }
+                                                    ?>" class="btn btn-dark animate-up-2">
                                             Update
                                             <span class="icon icon-xs ">
                                                 <i class="fas fa-external-link-alt"></i>
                                             </span>
                                         </a>
-                                        <a href="../process/deleteuserprocess.php?id=<?php echo $value['id'] ?>" class="btn btn-dark animate-up-2">
+                                        <?php
+                                        $canDelete = "../process/deleteuserprocess.php?id=$id";
+                                        $notDelete = "../views/dashboardUser.php";
+                                        ?>
+                                        <a href="<?php if ($_SESSION['role'] == 0) {
+                                                        echo $canDelete;
+                                                    } else {
+                                                        echo $notDelete;
+                                                    }
+                                                    ?>" class="btn btn-dark animate-up-2">
                                             Delete
                                             <span class="icon icon-xs ">
                                                 <i class="fas fa-external-link-alt"></i>
@@ -150,8 +177,7 @@ if (isset($_SESSION['email'])) {
         </div>
     </div>
 <?php
-}
-else{
+} else {
     die("Cảnh báo: Bạn không có quyền truy cập!!!");
 }
 ?>

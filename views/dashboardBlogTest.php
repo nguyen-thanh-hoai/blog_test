@@ -1,14 +1,23 @@
 <?php
-require '../models/blog.php';
+require '../models/blog_test.php';
 session_start();
 if (isset($_SESSION['email'])) {
-    $blog = new Blog();
+    $blog = new BlogTest();
+    $key = '';
     if (isset($_GET['timkiem'])) {
         $total =  $blog->getTotalBlogByKeyWord($_GET['timkiem']);
+        $key = $key . 'timkiem=' . $_GET['timkiem'] . '&';
     } else if (isset($_GET['danhmuc'])) {
         $total = $blog->getTotalBlogByDanhMuc($_GET['danhmuc']);
+        $key = $key . 'danhmuc=' . $_GET['danhmuc'] . '&';
+    } else if (isset($_GET['the'])) {
+        $total = $blog->getTotalBlogByTag($_GET['the']);
+        $key = $key . 'the=' . $_GET['the'] . '&';
     } else {
         $total =  $blog->getTotalBlog();
+    }
+    if (isset($_GET['page'])) {
+        $key = $key . 'page=' . $_GET['page'] . '&';
     }
 
     $page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -33,30 +42,34 @@ if (isset($_SESSION['email'])) {
                         <a href="dashboard.php" class="nav-link bg-dark">
                             <p style="color: #fff;">
                                 Dashboard
+                                Blog-Test
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="dashboardUser.php" class="nav-link bg-dark">
-                            <p style="color: #fff;">
-                                User
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="dashboardBlog.php" class="nav-link bg-dark">
-                            <p style="color: #fff;">
-                                Blog
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="dashboardBlogTest.php" class="nav-link bg-dark">
-                            <p style="color: #fff;">
-                            Blog Test
-                            </p>
-                        </a>
-                    </li>
+                    <?php
+                    foreach ($danhmuc as $danhmucvalue) {
+                    ?>
+                        <li class="nav-item">
+                            <a href="dashboardBlogTest.php?danhmuc=<?php echo $danhmucvalue['danhmuc'] ?>" class="nav-link">
+                                <p>
+                                    <b><?php echo $danhmucvalue['danhmuc'] ?>(<?php echo $blog->getTotalBlogByDanhMuc($danhmucvalue['danhmuc']) ?>)</b>
+                                </p>
+                            </a>
+                        </li>
+                    <?php } ?>
+                </ul>
+            </div>
+            <div class="sidebar">
+                <h1>Thẻ</h1>
+                <ul class="nav nav-pills nav-sidebar" data-widget="treeview" role="menu" data-accordion="false">
+                    <?php
+                    $allTag = $blog->getAllTag();
+                    foreach ($allTag as $valueTag) {
+                    ?>
+                        <div class="mt-2">
+                            <a href="dashboardBlogTest.php?the=<?php echo $valueTag['the'] ?>"><span class="border p-1 ml-2"><?php echo $valueTag['the'] ?></span></a>
+                        </div>
+                    <?php } ?>
                 </ul>
             </div>
         </div>
@@ -92,10 +105,10 @@ if (isset($_SESSION['email'])) {
 
                 </header>
                 <div class="container">
-                    <form action="dashboard.php" method="get">
+                    <form action="dashboardBlogTest.php" method="get">
                         <div class="row row-grid align-items-center ">
                             <div class="col-10 col-lg-10 order-lg-2">
-                                <input type="text" name="timkiem" class="form-control" id="timkiem" required placeholder="Tìm kiếm">
+                                <input type="text" value="<?php echo $timkiem = isset($_GET['timkiem']) ? $_GET['timkiem'] : '' ?>" name="timkiem" class="form-control" id="timkiem" required placeholder="Tìm kiếm">
                             </div>
                             <div class="col-2 col-lg-2 order-lg-2">
                                 <button type="submit" class="btn btn-primary">Tìm kiếm</button>
@@ -104,7 +117,7 @@ if (isset($_SESSION['email'])) {
                     </form>
                 </div>
                 <div class=" offset-md-9 btn btn-primary">
-                    <a href="../views/createblog.php?>" class="nav-link" style="color: #fff">
+                    <a href="../views/createblogtest.php" class="nav-link" style="color: #fff">
                         CREATE
                     </a>
                 </div>
@@ -114,6 +127,8 @@ if (isset($_SESSION['email'])) {
                     $allBlog = $blog->getBlogByKeyWordPage($_GET['timkiem'], $page, $perPage);
                 } else if (isset($_GET['danhmuc'])) {
                     $allBlog = $blog->getBlogByDanhMucPage($_GET['danhmuc'], $page, $perPage);
+                } else if (isset($_GET['the'])) {
+                    $allBlog = $blog->getBlogByTagPage($_GET['the'], $page, $perPage);
                 } else {
                     $allBlog = $blog->getBlogByPage($page, $perPage);
                 }
@@ -125,7 +140,7 @@ if (isset($_SESSION['email'])) {
                                 <th scope="col" style="width: 1%">STT</th>
                                 <th scope="col" style="width: 30%">Tiêu đề</th>
                                 <th scope="col" style="width: 20%">Danh mục</th>
-                                <th scope="col" style="width: 10%">Tác giả</th>
+                                <th scope="col" style="width: 9%">Tác giả</th>
                                 <th scope="col" style="width: 20%">Ngày cập nhật</th>
                                 <th scope="col" style="width: 20%">Thao tác</th>
                             </tr>
@@ -139,14 +154,30 @@ if (isset($_SESSION['email'])) {
                                     <td><?php echo $value['tacgia'] ?></td>
                                     <td><?php echo $value['update_at'] ?></td>
                                     <td>
-                                        <a href="../views/updateblog.php?id=<?php echo $value['id'] ?>" class="btn btn-dark animate-up-2">
+                                        <?php
+                                        $id = $value['id'];
+                                        $canUpdate = "../views/updateblogtest.php?id=$id";
+                                        $canDelete = "../process/deleteblogtestprocess.php?id=$id&$key";
+                                        $canPublic = "../process/publicblogprocess.php?id=$id";
+                                        $public = '';
+                                        if($_SESSION['role'] == 0){
+                                            $public = $canPublic;
+                                        }
+                                        ?>
+                                        <a href=" <?php echo $canUpdate?> " class="btn btn-dark animate-up-2">
                                             Update
                                             <span class="icon icon-xs ">
                                                 <i class="fas fa-external-link-alt"></i>
                                             </span>
                                         </a>
-                                        <a href="../process/deleteblogprocess.php?id=<?php echo $value['id'] ?>" class="btn btn-dark animate-up-2">
+                                        <a href="<?php echo $canDelete?>" class="btn btn-dark animate-up-2">
                                             Delete
+                                            <span class="icon icon-xs ">
+                                                <i class="fas fa-external-link-alt"></i>
+                                            </span>
+                                        </a>
+                                        <a href=" <?php echo $public?> " class="btn btn-dark animate-up-2 mt-2">
+                                            Public
                                             <span class="icon icon-xs ">
                                                 <i class="fas fa-external-link-alt"></i>
                                             </span>
@@ -167,20 +198,27 @@ if (isset($_SESSION['email'])) {
                             $timkiem = $_GET['timkiem'];
                             if ($total_pages > 1) {
                                 for ($i = 1; $i <= $total_pages; $i++) {
-                                    echo "<li class='page-item'><a class='page-link' href='dashboard.php?timkiem=$timkiem&page=$i'>$i</a></li>";
+                                    echo "<li class='page-item'><a class='page-link' href='dashboardBlogTest.php?timkiem=$timkiem&page=$i'>$i</a></li>";
                                 }
                             }
                         } else if (isset($_GET['danhmuc'])) {
                             $danhmuc = $_GET['danhmuc'];
                             if ($total_pages > 1) {
                                 for ($i = 1; $i <= $total_pages; $i++) {
-                                    echo "<li class='page-item'><a class='page-link' href='dashboard.php?danhmuc=$danhmuc&page=$i'>$i</a></li>";
+                                    echo "<li class='page-item'><a class='page-link' href='dashboardBlogTest.php?danhmuc=$danhmuc&page=$i'>$i</a></li>";
+                                }
+                            }
+                        } else if (isset($_GET['the'])) {
+                            $the = $_GET['the'];
+                            if ($total_pages > 1) {
+                                for ($i = 1; $i <= $total_pages; $i++) {
+                                    echo "<li class='page-item'><a class='page-link' href='dashboardBlogTest.php?the=$the&page=$i'>$i</a></li>";
                                 }
                             }
                         } else {
                             if ($total_pages > 1) {
                                 for ($i = 1; $i <= $total_pages; $i++) {
-                                    echo "<li class='page-item'><a class='page-link' href='dashboard.php?page=$i'>$i</a></li>";
+                                    echo "<li class='page-item'><a class='page-link' href='dashboardBlogTest.php?page=$i'>$i</a></li>";
                                 }
                             }
                         }
@@ -191,8 +229,7 @@ if (isset($_SESSION['email'])) {
         </div>
     </div>
 <?php
-}
-else{
+} else {
     die("Cảnh báo: Bạn không có quyền truy cập!!!");
 }
 ?>

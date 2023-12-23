@@ -1,3 +1,7 @@
+<?php
+require '../models/user.php';
+$user = new User();
+?>
 <!-- Primary Meta Tags -->
 <title>Blog-Test</title>
 
@@ -39,9 +43,16 @@
                                         <label for="exampleInputEmail1">PASSWORD</label>
                                         <input type="password" name="password" class="form-control" id="password" maxlength="20" required placeholder="Enter password">
                                     </div>
-                                    <div class="form-group mt-2">
-                                        <label for="exampleInputEmail1">ROLE</label>
-                                        <input type="text" name="role" class="form-control" id="role" maxlength="10" required placeholder="Enter role">
+                                    
+                                    <div class="form-group">
+                                        <label for="">ROLE</label>
+                                        <select name="role" id= "role" class="form-control custom-select">
+                                            <option selected disabled>Select one</option>
+                                            <?php $getRole = $user->getRole();
+                                            foreach ($getRole as $value) { ?>
+                                                <option value="<?php echo $value['id'] ?>"><?php echo $value['ten'] ?></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="card-footer">

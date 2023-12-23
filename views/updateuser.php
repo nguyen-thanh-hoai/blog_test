@@ -21,8 +21,8 @@
 <?php
 require '../models/user.php';
 if (isset($_GET['id'])) {
-    $user = new User();
-    $value = $user->getUserById($_GET['id']);
+  $user = new User();
+  $value = $user->getUserById($_GET['id']);
 ?>
 
   <body>
@@ -54,6 +54,21 @@ if (isset($_GET['id'])) {
                     <div class="form-group">
                       <label for="">Password</label>
                       <input type="password" name="password" class="form-control" id="password" maxlength="20" placeholder="Enter Mật Khẩu">
+                    </div>
+                    <div class="form-group">
+                      <label for="">ROLE</label>
+                      <select name="role" id="role" class="form-control custom-select">
+                        <option selected disabled>Select one</option>
+                        <?php $getRole = $user->getRole();
+                        foreach ($getRole as $valueRole) {
+                          if ($value[0]['vitri'] == $valueRole['id']) { ?>
+                          <option selected value="<?php echo $valueRole['id'] ?>"><?php echo $valueRole['ten'] ?></option>
+                        <?php
+                          }else{ ?>
+                          <option value="<?php echo $valueRole['id'] ?>"><?php echo $valueRole['ten'] ?></option>
+                         <?php }
+                        } ?>
+                      </select>
                     </div>
                   </div>
                   <div class="card-footer">

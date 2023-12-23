@@ -7,7 +7,7 @@ if (isset($_POST['email'])) {
         $password = $_POST['password'];
         $role = $_POST['role'];
         $passwordhash = password_hash($password, PASSWORD_DEFAULT);
-        $user->register($email, $passwordhash, $role );
+        $user->register($email, $passwordhash, $role);
         header('location:../views/dashboardUser.php');
     } else {
         die("Cảnh báo: Email không hợp lệ.");

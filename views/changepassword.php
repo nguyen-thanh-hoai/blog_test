@@ -1,3 +1,6 @@
+<?php 
+session_start();
+if(isset($_SESSION['email'])){ ?> 
 <title>Blog-Test</title>
 
 <!-- Swipe CSS -->
@@ -57,3 +60,5 @@
     </section>
   </div>
 </body>
+<?php }
+?>

@@ -172,10 +172,10 @@ if (isset($_SESSION['email'])) {
                                         $canDelete = "../process/deleteblogprocess.php?id=$id&$key";
                                         $notDelete = "../views/dashboardBlog.php";
                                         if ($_SESSION['role'] != 2) {
-                                            $update = $canCreate;
+                                            $update = $canUpdate;
                                             $delete = $canDelete;
                                         } else {
-                                            $update = $notCreate;
+                                            $update = $notUpdate;
                                             $delete = $notDelete;
                                         }
                                         ?>

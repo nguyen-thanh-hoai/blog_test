@@ -1,3 +1,7 @@
+<?php
+session_start();
+if(isset($_SESSION['email'])){
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -104,6 +108,9 @@ if (isset($_GET['id'])) {
       </section>
     </div>
   </body>
+<?php
+}
+?>
 <?php
 }
 ?>

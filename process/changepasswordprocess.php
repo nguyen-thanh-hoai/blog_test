@@ -15,12 +15,18 @@ if (isset($_SESSION['email'])) {
                 $user->updatePassword($email, $passwordhash);
                 header('location:../views/login.php');
             }
+            else{
+                die('sai xac nhan mat khau');
+            }
         } else {
-            echo 'sai password';
+            
+            die('sai password');
         }
-    }else{
+    } else {
+        
         die("Cảnh báo: Lỗi");
     }
-}else{
+} else {
+    header('location:../views/login.php');
     die("Cảnh báo: Lỗi");
 }

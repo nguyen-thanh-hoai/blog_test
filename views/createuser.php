@@ -1,4 +1,7 @@
 <?php
+session_start();
+if (isset($_SESSION['email']) && $_SESSION['role'] == 0) { ?>
+<?php
 require '../models/user.php';
 $user = new User();
 ?>
@@ -66,3 +69,5 @@ $user = new User();
         </section>
     </div>
 </body>
+<?php }
+?>

@@ -42,7 +42,6 @@ if (isset($_POST['email'])) {
     echo "Mật khẩu mới đã được gửi đến email của bạn.";
     header('location:../views/login.php');
    }
-  echo "Mật khẩu mới đã được gửi đến email của bạn.";
 }
 else{
   die("Cảnh báo: Lỗi");

@@ -45,7 +45,7 @@ if (isset($_SESSION['email'])) { ?>
                         <div class="container position-relative">
                             <div class="row">
                                 <div class="col-1 col-md-1 mt-3">
-                                    <a class="navbar-brand" href="../views/index.php">
+                                    <a class="navbar-brand" href="../process/logoutprocess.php">
                                         <img class="navbar-brand-light " src="../image/logo.png" alt="Logo dark">
                                     </a>
                                 </div>

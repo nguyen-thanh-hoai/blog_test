@@ -21,12 +21,11 @@ $danhmuc = $blog->getDanhMuc();
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!-- Primary Meta Tags -->
     <title>Blog-Test</title>
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 
     <!-- Swipe CSS -->
     <link type="text/css" href="../css/swipe.css" rel="stylesheet">
 </head>
-
-
 
 <body style="font-family: Arial, sans-serif;">
     <div class="row">
@@ -125,6 +124,7 @@ $danhmuc = $blog->getDanhMuc();
                         <div class="col-12 col-lg-7 col-md-7 ">
                             <h2 class="mb-4"><?php echo $value['tieude'] ?></h2>
                             <p class="font-a"><?php echo $value['noidung'] ?></p>
+                            <span class="btn btn-primary"><a style="color: #fff" href="comment.php?id=<?php echo $value['id']?>">Xem bình luận</a></span>
                         </div>
                     </div>
                 </div>

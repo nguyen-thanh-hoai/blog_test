@@ -143,4 +143,20 @@ class Blog extends Db
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
         return $items;
     }
+
+    public function createComment($id_blog, $comment, $macmt)
+    {
+        $sql = self::$connection->prepare('INSERT INTO comment(id_blog, comment, macmt) VALUE (?,?,?)');
+        $sql->bind_param("sss", $id_blog, $comment, $macmt);
+        $sql->execute();
+    }
+    public function getAllComment($id_blog)
+    {
+        $sql = self::$connection->prepare('SELECT * FROM comment where id_blog = ?');
+        $sql->bind_param("i", $id_blog);
+        $sql->execute();
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items;
+    }
 }

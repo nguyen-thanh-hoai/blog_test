@@ -125,4 +125,18 @@ class User extends Db
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
         return $items;
     }
+    public function createMessage($email, $emailSend, $message)
+    {
+        $sql = self::$connection->prepare("INSERT INTO `message` (email, emailsend,`message`) VALUE (?,?,?)");
+        $sql->bind_param("sss", $email, $emailSend, $message);
+        $sql->execute();
+    }
+    public function getMessage($email, $emailSend){
+        $sql = self::$connection->prepare('SELECT * FROM `message`  where email = ? and emailsend = ? or email = ? and emailsend = ? order by `time` ASC');
+        $sql->bind_param("ssss", $email, $emailSend, $emailSend, $email);
+        $sql->execute();
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items;
+    }
 }

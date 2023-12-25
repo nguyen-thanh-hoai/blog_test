@@ -57,6 +57,13 @@ if (isset($_SESSION['email'])) {
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="chat.php" class="nav-link bg-dark">
+                            <p style="color: #fff;">
+                                Chat
+                            </p>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>

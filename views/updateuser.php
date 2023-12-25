@@ -57,7 +57,7 @@ if (isset($_SESSION['role']) && $_SESSION['role'] == 0) {
                       </div>
                       <div class="form-group">
                         <label for="">Password</label>
-                        <input type="password" name="password" class="form-control" id="password" maxlength="20" placeholder="Enter Mật Khẩu">
+                        <input type="password" name="password" class="form-control" id="password" minlength="6" maxlength="20" placeholder="Enter Mật Khẩu">
                       </div>
                       <div class="form-group">
                         <label for="">ROLE</label>

@@ -44,7 +44,7 @@ $user = new User();
                                     </div>
                                     <div class="form-group mt-2">
                                         <label for="exampleInputEmail1">PASSWORD</label>
-                                        <input type="password" name="password" class="form-control" id="password" maxlength="20" required placeholder="Enter password">
+                                        <input type="password" name="password" class="form-control" id="password" minlength="6" maxlength="20" required placeholder="Enter password">
                                     </div>
                                     
                                     <div class="form-group">

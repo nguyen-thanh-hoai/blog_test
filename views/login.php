@@ -22,7 +22,6 @@
         </div>
       </div>
     </section>
-
     <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -38,7 +37,7 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">MẬT KHẨU</label>
-                    <input type="password" name="password" class="form-control" id="password" maxlength="20" required placeholder="Enter Mật Khẩu">
+                    <input type="password" name="password" class="form-control" id="password" minlength="6" maxlength="20" required placeholder="Enter Mật Khẩu">
                   </div>
                 </div>
                 <div class="card-footer">
@@ -49,7 +48,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </section>
   </div>

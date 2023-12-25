@@ -37,15 +37,15 @@ if(isset($_SESSION['email'])){ ?>
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">MẬT KHẨU HIỆN TẠI</label>
-                    <input type="password" name="oldpassword" class="form-control mb-2" id="oldpassword" maxlength="100" required placeholder="Enter Mật Khẩu Cũ">
+                    <input type="password" name="oldpassword" class="form-control mb-2" id="oldpassword" minlength="6" maxlength="100" required placeholder="Enter Mật Khẩu Cũ">
                   </div>
                   <div class="form-group mt-3">
                     <label for="exampleInputEmail1">MẬT KHẨU MỚI</label>
-                    <input type="password" name="newpassword" class="form-control" id="newpassword" maxlength="100" required placeholder="Enter Mật Khẩu Mới">
+                    <input type="password" name="newpassword" class="form-control" id="newpassword" minlength="6" maxlength="100" required placeholder="Enter Mật Khẩu Mới">
                   </div>
                   <div class="form-group mt-3">
                     <label for="exampleInputEmail1">XÁC NHẬN MẬT KHẨU MỚI </label>
-                    <input type="password" name="newpasswordagain" class="form-control" id="newpasswordagain" maxlength="100" required placeholder="Enter Xác Nhận Mật Khẩu Mới">
+                    <input type="password" name="newpasswordagain" class="form-control" id="newpasswordagain" minlength="6" maxlength="100" required placeholder="Enter Xác Nhận Mật Khẩu Mới">
                   </div>
                 </div>
                 <div class="card-footer">

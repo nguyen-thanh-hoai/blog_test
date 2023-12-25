@@ -11,7 +11,7 @@ if (isset($_GET['timkiem'])) {
     $total =  $blog->getTotalBlog();
 }
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
-$perPage = 3;
+$perPage = 2;
 $danhmuc = $blog->getDanhMuc();
 ?>
 <!DOCTYPE html>

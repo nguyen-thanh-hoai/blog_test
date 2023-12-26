@@ -123,7 +123,7 @@ $danhmuc = $blog->getDanhMuc();
                         </div>
                         <div class="col-12 col-lg-7 col-md-7 ">
                             <h2 class="mb-4"><?php echo $value['tieude'] ?></h2>
-                            <p class="font-a"><?php echo $value['noidung'] ?></p>
+                            <div><p class="font-a"><?php echo $value['noidung'] ?></p></div>
                             <span class="btn btn-primary"><a style="color: #fff" href="comment.php?id=<?php echo $value['id']?>">Xem bình luận</a></span>
                         </div>
                     </div>

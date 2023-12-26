@@ -68,12 +68,25 @@ $allUser = $user->getAllUser();
             padding: 5px;
         }
     </style>
+    <link type="text/css" href="../css/swipe.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="container">
         <div class="row">
             <div class="col-3 col-md-3 mt-5">
+            <div class="sidebar">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item">
+                        <a href="dashboard.php" class="nav-link bg-dark">
+                            <p style="color: #fff;">
+                                Dashboard
+                            </p>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
                 <h5>Danh sách người dùng</h5>
                 <div class="chatbox " style="overflow: auto;">
                     <?php

@@ -17,7 +17,12 @@ if (isset($_POST['email'])) {
     if (password_verify($password, $getPassword[0]['matkhau'])) {
         $_SESSION['email'] = $email;
         $_SESSION['role'] = $getUser[0]['vitri'];
-        header('location:../views/dashboard.php');
+        if($_SESSION['role'] != 3){
+            header('location:../views/dashboard.php');
+        }
+        else{
+            header('location:../views/index.php');
+        }
     } else {
         header('location:../views/login.php');
     }

@@ -1,7 +1,7 @@
 <?php
 require '../models/blog.php';
 session_start();
-if (isset($_SESSION['email'])) {
+if (isset($_SESSION['email']) && $_SESSION['role'] != 3) {
     $blog = new Blog();
     if (isset($_GET['timkiem'])) {
         $total =  $blog->getTotalBlogByKeyWord($_GET['timkiem']);

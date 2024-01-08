@@ -144,10 +144,10 @@ class Blog extends Db
         return $items;
     }
 
-    public function createComment($id_blog, $comment, $macmt)
+    public function createComment($id_blog, $comment, $email)
     {
-        $sql = self::$connection->prepare('INSERT INTO comment(id_blog, comment, macmt) VALUE (?,?,?)');
-        $sql->bind_param("sss", $id_blog, $comment, $macmt);
+        $sql = self::$connection->prepare('INSERT INTO comment(id_blog, comment, email) VALUE (?,?,?)');
+        $sql->bind_param("sss", $id_blog, $comment, $email);
         $sql->execute();
     }
     public function getAllComment($id_blog)

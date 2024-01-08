@@ -1,5 +1,6 @@
 <?php
 require '../models/blog.php';
+session_start();
 $blog = new Blog();
 $id = $_GET['id'];
 $getBlog = $blog->getBlogById($id);
@@ -51,7 +52,7 @@ $getAllComment = $blog->getAllComment($id);
                 <div style="overflow: auto;" class="commentbox">
                     <?php
                     foreach ($getAllComment as $valueComment) { ?>
-                        <div style="font-size: 10px;" class="mt-3" ><?php echo $valueComment['macmt'] ?></div>
+                        <div style="font-size: 10px;" class="mt-3" ><?php echo $valueComment['email'] ?></div>
                         <div class="sendmsg"><?php echo $valueComment['comment'] ?></div>
                     <?php }
                     ?>
@@ -60,6 +61,7 @@ $getAllComment = $blog->getAllComment($id);
                     <form action="../process/createcommentprocess.php" method="post">
                         <div class="form-group">
                             <input type="hidden" name="id" value="<?php echo $getBlog[0]['id'] ?>">
+                            <input type="hidden" name="email" value="<?php echo $_SESSION['email']?>">
                             <input type="text" name="comment" class="form-control mb-2" id="comment" required placeholder="Enter comment">
                             <button type="submit" class="btn btn-primary">Đăng</button>
                         </div>

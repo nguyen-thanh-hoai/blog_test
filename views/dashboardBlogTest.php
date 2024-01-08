@@ -1,7 +1,7 @@
 <?php
 require '../models/blog_test.php';
 session_start();
-if (isset($_SESSION['email'])) {
+if (isset($_SESSION['email']) && $_SESSION['role'] != 3) {
     $blog = new BlogTest();
     $key = '';
     if (isset($_GET['timkiem'])) {

@@ -1,12 +1,18 @@
 <?php
 require '../models/user.php';
 session_start();
+if(isset($_SESSION['email']) && $_SESSION['role'] != 3){ ?>
+<?php
 $user = new User();
 if (isset($_POST['emailsend'])) {
     $_SESSION['emailsend'] = $_POST['emailsend'];
     $getMessage = $user->getMessage($_SESSION['email'], $_SESSION['emailsend']);
-} else {
+} 
+else if(isset($_SESSION['emailsend'])){
     $getMessage = $user->getMessage($_SESSION['email'], $_SESSION['emailsend']);
+}
+else{
+    $getMessage = null;
 }
 
 $allUser = $user->getAllUser();
@@ -144,3 +150,6 @@ $allUser = $user->getAllUser();
     </div>
     <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
+
+<?php }
+?>

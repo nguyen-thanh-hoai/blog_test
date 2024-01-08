@@ -1,4 +1,5 @@
 <?php
+session_start();
 require '../models/blog.php';
 $blog = new Blog();
 if (isset($_GET['timkiem'])) {
@@ -86,9 +87,18 @@ $danhmuc = $blog->getDanhMuc();
                             </div>
                         </div>
                         <div class="d-flex align-items-center ">
-                            <a href="../views/register.php" class="btn btn-outline-soft d-none d-md-inline mr-md-3 animate-up-2" style="background-color: #000;">ĐĂNG KÍ</a>
-                            <a href="../views/login.php" class="btn btn-md btn-tertiary text-white d-none d-md-inline animate-up-2">ĐĂNG NHẬP<i></i></a>
+                            <?php
+                            if (isset($_SESSION['email']) && $_SESSION['role'] == 3) { ?>
+                                <a href="../process/logoutprocess.php" class="btn btn-outline-soft d-none d-md-inline mr-md-3 animate-up-2" style="background-color: #000;">ĐĂNG XUẤT</a>
                         </div>
+                    <?php } else if ($_SESSION['role'] != 3) { ?>
+                        <a href="../views/dashboard.php" class="btn btn-outline-soft d-none d-md-inline mr-md-3 animate-up-2" style="background-color: #000;">Dashboard</a>
+
+                    <?php } else { ?>
+                        <a href="../views/register.php" class="btn btn-outline-soft d-none d-md-inline mr-md-3 animate-up-2" style="background-color: #000;">ĐĂNG KÍ</a>
+                        <a href="../views/login.php" class="btn btn-md btn-tertiary text-white d-none d-md-inline animate-up-2">ĐĂNG NHẬP<i></i></a>
+                    <?php }
+                    ?>
                     </div>
                 </nav>
             </div>
@@ -123,8 +133,10 @@ $danhmuc = $blog->getDanhMuc();
                         </div>
                         <div class="col-12 col-lg-7 col-md-7 ">
                             <h2 class="mb-4"><?php echo $value['tieude'] ?></h2>
-                            <div><p class="font-a"><?php echo $value['noidung'] ?></p></div>
-                            <span class="btn btn-primary"><a style="color: #fff" href="comment.php?id=<?php echo $value['id']?>">Xem bình luận</a></span>
+                            <div>
+                                <p class="font-a"><?php echo $value['noidung'] ?></p>
+                            </div>
+                            <span class="btn btn-primary"><a style="color: #fff" href="comment.php?id=<?php echo $value['id'] ?>">Xem bình luận</a></span>
                         </div>
                     </div>
                 </div>
